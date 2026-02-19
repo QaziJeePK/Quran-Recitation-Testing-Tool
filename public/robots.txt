@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://yourdomain.com/sitemap.xml
+
+# Block admin/config paths
+Disallow: /node_modules/
+Disallow: /.env
+Disallow: /src/

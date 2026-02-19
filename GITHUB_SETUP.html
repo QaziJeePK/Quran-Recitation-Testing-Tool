@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>GitHub Setup Guide — Quran Checker</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family: 'Segoe UI', sans-serif; background:#0d1117; color:#e6edf3; line-height:1.7; }
+  .hero { background:linear-gradient(135deg,#1a472a,#166534,#14532d); padding:60px 20px; text-align:center; }
+  .hero h1 { font-size:2.5rem; font-weight:800; color:#4ade80; margin-bottom:12px; }
+  .hero p { font-size:1.1rem; color:#bbf7d0; max-width:600px; margin:0 auto; }
+  .badge { display:inline-block; background:#4ade80; color:#14532d; padding:4px 14px; border-radius:999px; font-size:0.8rem; font-weight:700; margin:8px 4px; }
+  .badge.blue { background:#60a5fa; color:#1e3a5f; }
+  .badge.purple { background:#c084fc; color:#3b0764; }
+  .container { max-width:900px; margin:0 auto; padding:40px 20px; }
+  .section { margin-bottom:50px; }
+  .section-title { font-size:1.5rem; font-weight:700; color:#4ade80; margin-bottom:20px; padding-bottom:10px; border-bottom:2px solid #1f2937; display:flex; align-items:center; gap:10px; }
+  .step { background:#161b22; border:1px solid #30363d; border-radius:12px; padding:24px; margin-bottom:16px; position:relative; }
+  .step:hover { border-color:#4ade80; transition:border-color 0.2s; }
+  .step-num { position:absolute; top:-14px; left:20px; background:#4ade80; color:#14532d; width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:0.9rem; }
+  .step h3 { color:#e6edf3; font-size:1.1rem; font-weight:700; margin-bottom:10px; padding-left:10px; }
+  .step p { color:#8b949e; font-size:0.95rem; }
+  .step ul { color:#8b949e; font-size:0.95rem; padding-left:20px; }
+  .step ul li { margin-bottom:6px; }
+  .step ul li strong { color:#e6edf3; }
+  .code { background:#0d1117; border:1px solid #30363d; border-radius:8px; padding:16px 20px; font-family:'Courier New',monospace; font-size:0.9rem; color:#79c0ff; margin:12px 0; overflow-x:auto; position:relative; }
+  .code .comment { color:#8b949e; }
+  .copy-btn { position:absolute; top:8px; right:8px; background:#21262d; border:1px solid #30363d; color:#8b949e; padding:4px 12px; border-radius:6px; cursor:pointer; font-size:0.75rem; }
+  .copy-btn:hover { background:#4ade80; color:#14532d; border-color:#4ade80; }
+  .img-placeholder { background:#161b22; border:2px dashed #30363d; border-radius:12px; padding:40px; text-align:center; color:#8b949e; margin:12px 0; }
+  .img-placeholder .icon { font-size:3rem; margin-bottom:10px; }
+  .img-placeholder p { font-size:0.9rem; }
+  .alert { border-radius:10px; padding:16px 20px; margin:16px 0; display:flex; gap:12px; align-items:flex-start; }
+  .alert.green { background:#0d2818; border:1px solid #166534; }
+  .alert.yellow { background:#1c1a0a; border:1px solid #854d0e; }
+  .alert.red { background:#1c0a0a; border:1px solid #7f1d1d; }
+  .alert.blue { background:#0a1628; border:1px solid #1e3a5f; }
+  .alert-icon { font-size:1.3rem; flex-shrink:0; }
+  .alert-text { font-size:0.9rem; color:#8b949e; }
+  .alert-text strong { color:#e6edf3; }
+  .two-col { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  @media(max-width:600px) { .two-col { grid-template-columns:1fr; } .hero h1 { font-size:1.8rem; } }
+  .method-card { background:#161b22; border:1px solid #30363d; border-radius:12px; padding:24px; }
+  .method-card h3 { color:#4ade80; font-weight:700; margin-bottom:12px; font-size:1rem; }
+  .method-card .tag { display:inline-block; font-size:0.7rem; padding:2px 8px; border-radius:999px; margin-bottom:12px; font-weight:600; }
+  .tag-easy { background:#0d2818; color:#4ade80; border:1px solid #166534; }
+  .tag-medium { background:#1c1a0a; color:#fbbf24; border:1px solid #854d0e; }
+  .url-box { background:#0d2818; border:1px solid #166534; border-radius:8px; padding:12px 16px; margin-top:12px; text-align:center; }
+  .url-box .url { color:#4ade80; font-family:monospace; font-size:1rem; font-weight:700; }
+  .url-box .label { color:#8b949e; font-size:0.8rem; margin-top:4px; }
+  .trouble-table { width:100%; border-collapse:collapse; margin-top:12px; }
+  .trouble-table th { background:#21262d; padding:10px 14px; text-align:left; font-size:0.85rem; color:#8b949e; }
+  .trouble-table td { padding:10px 14px; font-size:0.85rem; color:#8b949e; border-top:1px solid #21262d; }
+  .trouble-table td:first-child { color:#f87171; }
+  .trouble-table td:last-child { color:#4ade80; }
+  .final { background:linear-gradient(135deg,#1a472a,#14532d); border-radius:16px; padding:40px; text-align:center; margin-top:40px; }
+  .final h2 { color:#4ade80; font-size:1.8rem; margin-bottom:12px; }
+  .final p { color:#bbf7d0; font-size:1rem; }
+  footer { text-align:center; padding:30px; color:#8b949e; font-size:0.85rem; border-top:1px solid #21262d; margin-top:40px; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div style="font-size:3rem;margin-bottom:16px;">🕌</div>
+  <h1>Quran Checker — GitHub Setup</h1>
+  <p>Deploy your app online for FREE with automatic builds — no Node.js needed on your PC!</p>
+  <div style="margin-top:20px;">
+    <span class="badge">✅ Free Hosting</span>
+    <span class="badge blue">🔄 Auto Build</span>
+    <span class="badge purple">🌐 HTTPS Included</span>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- WHAT YOU NEED -->
+  <div class="section">
+    <div class="section-title">📋 What You Need</div>
+    <div class="two-col">
+      <div class="method-card">
+        <h3>✅ You Need</h3>
+        <ul style="color:#8b949e;font-size:0.9rem;padding-left:18px;">
+          <li style="margin-bottom:8px;">A <strong style="color:#e6edf3;">GitHub account</strong> (free)</li>
+          <li style="margin-bottom:8px;">Your <strong style="color:#e6edf3;">project files</strong> (this folder)</li>
+          <li style="margin-bottom:8px;">A browser — <strong style="color:#e6edf3;">Chrome or Edge</strong></li>
+          <li style="margin-bottom:8px;">Internet connection</li>
+        </ul>
+      </div>
+      <div class="method-card">
+        <h3>❌ You Do NOT Need</h3>
+        <ul style="color:#8b949e;font-size:0.9rem;padding-left:18px;">
+          <li style="margin-bottom:8px;">Node.js installed</li>
+          <li style="margin-bottom:8px;">npm installed</li>
+          <li style="margin-bottom:8px;">Git installed</li>
+          <li style="margin-bottom:8px;">Any paid server</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 1 -->
+  <div class="section">
+    <div class="section-title">🐙 Step 1 — Create GitHub Account</div>
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>Go to GitHub.com</h3>
+      <p>Open your browser and go to: <strong style="color:#60a5fa;">https://github.com</strong></p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>Click "Sign Up"</h3>
+      <ul>
+        <li>Enter your <strong>email address</strong></li>
+        <li>Create a <strong>username</strong> (example: <code style="color:#79c0ff;">ahmed-quran</code>)</li>
+        <li>Create a <strong>password</strong></li>
+        <li>Verify your email</li>
+      </ul>
+    </div>
+    <div class="alert green">
+      <div class="alert-icon">💡</div>
+      <div class="alert-text"><strong>Your website URL will be:</strong><br/>
+      <code style="color:#4ade80;">https://YOUR-USERNAME.github.io/quran-checker/</code><br/>
+      So choose a good username!</div>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <div class="section">
+    <div class="section-title">📁 Step 2 — Create New Repository</div>
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>Click the "+" icon → "New repository"</h3>
+      <p>Top right corner of GitHub, click the <strong>+</strong> button, then <strong>New repository</strong></p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>Fill in the details</h3>
+      <ul>
+        <li><strong>Repository name:</strong> <code style="color:#79c0ff;">quran-checker</code></li>
+        <li><strong>Description:</strong> Quranic Recitation Checker with Tajweed</li>
+        <li><strong>Visibility:</strong> ✅ Public (required for free GitHub Pages)</li>
+        <li><strong>Initialize:</strong> Leave UNCHECKED (we'll upload files)</li>
+      </ul>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>Click "Create repository"</h3>
+      <p>Green button at the bottom — repository is created!</p>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <div class="section">
+    <div class="section-title">📤 Step 3 — Upload Your Files (3 Methods)</div>
+
+    <div class="alert blue">
+      <div class="alert-icon">👆</div>
+      <div class="alert-text"><strong>Choose the easiest method for you:</strong> Method A is the easiest (drag & drop in browser). Method B uses GitHub Desktop app. Method C uses command line.</div>
+    </div>
+
+    <!-- Method A -->
+    <div class="method-card" style="margin-bottom:16px;">
+      <h3>🅰️ Method A — Drag & Drop in Browser (EASIEST)</h3>
+      <span class="tag tag-easy">⭐ Easiest — No installs needed</span>
+      <div class="step" style="margin-top:12px;">
+        <div class="step-num">1</div>
+        <h3>Open your new repository on GitHub</h3>
+        <p>You should see "uploading an existing file" link — click it</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Drag ALL your project files</h3>
+        <p>Select ALL files from your project folder and drag them into the GitHub upload area</p>
+        <div class="alert yellow" style="margin-top:12px;">
+          <div class="alert-icon">⚠️</div>
+          <div class="alert-text"><strong>Important:</strong> You must upload the <strong>.github/workflows/deploy.yml</strong> file too! GitHub might hide files starting with a dot (.) on Windows. To see hidden files: <strong>View → Show → Hidden items</strong> in Windows Explorer.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Commit the files</h3>
+        <p>Scroll down → Click <strong>"Commit changes"</strong> green button</p>
+      </div>
+    </div>
+
+    <!-- Method B -->
+    <div class="method-card" style="margin-bottom:16px;">
+      <h3>🅱️ Method B — GitHub Desktop App (RECOMMENDED)</h3>
+      <span class="tag tag-easy">⭐ Easy — Visual interface</span>
+      <div style="margin-top:12px;">
+        <div class="step">
+          <div class="step-num">1</div>
+          <h3>Download GitHub Desktop</h3>
+          <p>Go to <strong style="color:#60a5fa;">https://desktop.github.com</strong> → Download → Install</p>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <h3>Sign in with your GitHub account</h3>
+          <p>Open GitHub Desktop → File → Options → Sign In</p>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <h3>Clone your repository</h3>
+          <p>File → Clone Repository → Select <strong>quran-checker</strong> → Choose a local folder → Clone</p>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <h3>Copy your project files</h3>
+          <p>Copy ALL your project files into the cloned folder</p>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <h3>Commit and Push</h3>
+          <p>In GitHub Desktop → Type a commit message → Click <strong>"Commit to main"</strong> → Click <strong>"Push origin"</strong></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Method C -->
+    <div class="method-card">
+      <h3>🅲 Method C — Command Line (If Git is installed)</h3>
+      <span class="tag tag-medium">⚡ Fast — If you have Git</span>
+      <p style="color:#8b949e;font-size:0.85rem;margin:12px 0;">Check if Git is installed: open Command Prompt (cmd) and type <code style="color:#79c0ff;">git --version</code></p>
+      <div class="code">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <span class="comment"># Open Command Prompt (cmd) in your project folder</span><br/>
+        <span class="comment"># Right-click in folder → "Open in Terminal" or "Git Bash Here"</span><br/><br/>
+        git init<br/>
+        git add .<br/>
+        git commit -m "Initial commit"<br/>
+        git branch -M main<br/>
+        git remote add origin https://github.com/YOUR-USERNAME/quran-checker.git<br/>
+        git push -u origin main
+      </div>
+      <div class="alert yellow">
+        <div class="alert-icon">⚠️</div>
+        <div class="alert-text">Replace <strong>YOUR-USERNAME</strong> with your actual GitHub username!</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 4 -->
+  <div class="section">
+    <div class="section-title">⚙️ Step 4 — Enable GitHub Pages</div>
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>Go to Repository Settings</h3>
+      <p>In your repository → Click <strong>Settings</strong> tab (top menu)</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>Find "Pages" in the left sidebar</h3>
+      <p>Scroll down in the left menu → Click <strong>Pages</strong></p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>Set Source to "GitHub Actions"</h3>
+      <ul>
+        <li>Under <strong>Build and deployment</strong></li>
+        <li>Source: select <strong>GitHub Actions</strong> from dropdown</li>
+        <li>Click <strong>Save</strong></li>
+      </ul>
+    </div>
+    <div class="alert green">
+      <div class="alert-icon">✅</div>
+      <div class="alert-text"><strong>This is the most important step!</strong> Without this, GitHub will not deploy your built app.</div>
+    </div>
+  </div>
+
+  <!-- STEP 5 -->
+  <div class="section">
+    <div class="section-title">🔄 Step 5 — Watch Auto Build</div>
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>Go to "Actions" tab in your repository</h3>
+      <p>Click the <strong>Actions</strong> tab in the top menu of your repository</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>Watch the build run automatically</h3>
+      <p>You will see a workflow called <strong>"Deploy Quran Checker"</strong> running. It takes about <strong>2-3 minutes</strong>.</p>
+      <ul style="margin-top:8px;">
+        <li>🟡 Yellow circle = Building in progress</li>
+        <li>✅ Green checkmark = Build successful, deployed!</li>
+        <li>❌ Red X = Error (see Troubleshooting below)</li>
+      </ul>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>GitHub installs Node.js and builds automatically</h3>
+      <p>GitHub's servers run <strong>npm install</strong> and <strong>npm run build</strong> for you — you don't need to do anything!</p>
+    </div>
+  </div>
+
+  <!-- STEP 6 -->
+  <div class="section">
+    <div class="section-title">🌐 Step 6 — Access Your Live Website</div>
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>Your website is live at:</h3>
+      <div class="url-box">
+        <div class="url">https://YOUR-USERNAME.github.io/quran-checker/</div>
+        <div class="label">Replace YOUR-USERNAME with your GitHub username</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>Find the exact URL in Settings → Pages</h3>
+      <p>GitHub will show you the exact URL after deployment is complete</p>
+    </div>
+    <div class="alert green">
+      <div class="alert-icon">🎉</div>
+      <div class="alert-text"><strong>Congratulations!</strong> Your Quran Checker is now live online with FREE HTTPS hosting!</div>
+    </div>
+  </div>
+
+  <!-- UPDATING -->
+  <div class="section">
+    <div class="section-title">🔄 How to Update Your App</div>
+    <div class="alert blue">
+      <div class="alert-icon">💡</div>
+      <div class="alert-text"><strong>Every time you push changes to GitHub, it auto-rebuilds and deploys!</strong> No manual build needed.</div>
+    </div>
+    <div class="two-col">
+      <div class="method-card">
+        <h3>Edit on GitHub Website</h3>
+        <ol style="color:#8b949e;font-size:0.9rem;padding-left:18px;">
+          <li style="margin-bottom:6px;">Open your repository</li>
+          <li style="margin-bottom:6px;">Click on any file</li>
+          <li style="margin-bottom:6px;">Click the ✏️ pencil icon</li>
+          <li style="margin-bottom:6px;">Make your changes</li>
+          <li style="margin-bottom:6px;">Click "Commit changes"</li>
+          <li>Auto-builds in 2-3 minutes!</li>
+        </ol>
+      </div>
+      <div class="method-card">
+        <h3>Via GitHub Desktop</h3>
+        <ol style="color:#8b949e;font-size:0.9rem;padding-left:18px;">
+          <li style="margin-bottom:6px;">Edit files locally</li>
+          <li style="margin-bottom:6px;">Open GitHub Desktop</li>
+          <li style="margin-bottom:6px;">See changed files</li>
+          <li style="margin-bottom:6px;">Write commit message</li>
+          <li style="margin-bottom:6px;">Click "Commit to main"</li>
+          <li>Click "Push origin"</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- TROUBLESHOOTING -->
+  <div class="section">
+    <div class="section-title">🔧 Troubleshooting</div>
+    <table class="trouble-table">
+      <thead>
+        <tr>
+          <th>Problem</th>
+          <th>Solution</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>❌ Build fails (red X)</td>
+          <td>Click the red X → Read the error → Usually a missing file. Make sure .github/workflows/deploy.yml was uploaded</td>
+        </tr>
+        <tr>
+          <td>❌ 404 page not found</td>
+          <td>Wait 5 minutes after first deploy. Check Settings → Pages → Source is set to "GitHub Actions"</td>
+        </tr>
+        <tr>
+          <td>❌ deploy.yml not found</td>
+          <td>Windows hides files starting with dot (.). Enable hidden files: View → Show → Hidden items, then re-upload</td>
+        </tr>
+        <tr>
+          <td>❌ Microphone not working</td>
+          <td>GitHub Pages uses HTTPS so mic WILL work. Must allow mic permission in browser popup</td>
+        </tr>
+        <tr>
+          <td>❌ White screen</td>
+          <td>Clear browser cache (Ctrl+Shift+R). Check Actions tab for build errors</td>
+        </tr>
+        <tr>
+          <td>❌ Old version showing</td>
+          <td>Wait 3 minutes for CDN to update. Force refresh: Ctrl+Shift+R</td>
+        </tr>
+        <tr>
+          <td>❌ Can't see .github folder</td>
+          <td>In Windows Explorer: View tab → tick "Hidden items" checkbox</td>
+        </tr>
+        <tr>
+          <td>❌ Repository must be Public</td>
+          <td>Settings → General → Danger Zone → Change visibility → Public</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- FOLDER STRUCTURE -->
+  <div class="section">
+    <div class="section-title">📁 Files You Must Upload</div>
+    <div class="code">
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+      quran-checker/ (your project folder)<br/>
+      ├── <strong style="color:#4ade80;">.github/</strong>  ← MUST UPLOAD (hidden folder!)<br/>
+      │   └── <strong style="color:#4ade80;">workflows/</strong><br/>
+      │       └── <strong style="color:#4ade80;">deploy.yml</strong>  ← The auto-build file<br/>
+      ├── src/              ← Your React source code<br/>
+      ├── public/           ← Static files<br/>
+      ├── index.html        ← Main HTML<br/>
+      ├── package.json      ← Dependencies list<br/>
+      ├── vite.config.ts    ← Build config<br/>
+      ├── tsconfig.json     ← TypeScript config<br/>
+      └── tailwind.config.* ← Styles config<br/><br/>
+      <span class="comment"># You do NOT need to upload:</span><br/>
+      <span class="comment"># node_modules/ (too large, GitHub installs automatically)</span><br/>
+      <span class="comment"># dist/ (GitHub builds this automatically)</span>
+    </div>
+    <div class="alert yellow">
+      <div class="alert-icon">⚠️</div>
+      <div class="alert-text"><strong>Most important:</strong> The <code>.github/workflows/deploy.yml</code> file is what triggers the automatic build. Without it, nothing builds!</div>
+    </div>
+  </div>
+
+  <!-- CUSTOM DOMAIN -->
+  <div class="section">
+    <div class="section-title">🌐 Optional — Add Your Own Domain</div>
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>Buy a domain (e.g., quranrecite.com)</h3>
+      <p>From Namecheap, GoDaddy, or Google Domains (~$10/year)</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>Add CNAME record in DNS</h3>
+      <div class="code">
+        Type: CNAME<br/>
+        Name: www<br/>
+        Value: YOUR-USERNAME.github.io
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>Add domain in GitHub Settings → Pages</h3>
+      <p>Settings → Pages → Custom domain → Enter your domain → Save</p>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <h3>Create CNAME file in public/ folder</h3>
+      <div class="code">
+        Create a file named: <strong style="color:#4ade80;">CNAME</strong> (no extension)<br/>
+        Content: <strong style="color:#4ade80;">www.yourdomain.com</strong>
+      </div>
+    </div>
+    <div class="alert green">
+      <div class="alert-icon">🔒</div>
+      <div class="alert-text"><strong>HTTPS is FREE and automatic</strong> — GitHub Pages provides SSL certificate automatically for custom domains too!</div>
+    </div>
+  </div>
+
+  <!-- QUICK REFERENCE -->
+  <div class="section">
+    <div class="section-title">⚡ Quick Reference Commands</div>
+    <div class="code">
+      <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+      <span class="comment"># First time setup (run once)</span><br/>
+      git init<br/>
+      git add .<br/>
+      git commit -m "Add Quran Checker app"<br/>
+      git branch -M main<br/>
+      git remote add origin https://github.com/YOUR-USERNAME/quran-checker.git<br/>
+      git push -u origin main<br/><br/>
+      <span class="comment"># Every time you make changes</span><br/>
+      git add .<br/>
+      git commit -m "Update: describe what you changed"<br/>
+      git push
+    </div>
+  </div>
+
+  <div class="final">
+    <div style="font-size:3rem;margin-bottom:16px;">🕌</div>
+    <h2>You're All Set!</h2>
+    <p>Your Quranic Recitation Checker will be live online with automatic HTTPS,<br/>
+    free hosting, and automatic deployments on every update.</p>
+    <div style="margin-top:20px;">
+      <span class="badge">✅ Free Forever</span>
+      <span class="badge blue">🔄 Auto Deploy</span>
+      <span class="badge purple">🔒 Free HTTPS</span>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p>🕌 Quranic Recitation Checker — GitHub Setup Guide</p>
+  <p style="margin-top:8px;">Open this file in your browser for easy reference while setting up</p>
+</footer>
+
+<script>
+function copyCode(btn) {
+  const codeBlock = btn.parentElement;
+  const text = codeBlock.innerText.replace('Copy','').trim();
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = 'Copied!';
+    btn.style.background = '#4ade80';
+    btn.style.color = '#14532d';
+    setTimeout(() => { btn.textContent = 'Copy'; btn.style.background = ''; btn.style.color = ''; }, 2000);
+  });
+}
+</script>
+</body>
+</html>

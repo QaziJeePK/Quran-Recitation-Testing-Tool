@@ -1,0 +1,38 @@
+# Dependencies - DO NOT upload these (GitHub installs automatically)
+node_modules/
+.pnp
+.pnp.js
+
+# Build output - DO NOT upload (GitHub builds automatically)
+dist/
+dist-ssr/
+
+# Local env files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Editor folders
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# TypeScript
+*.tsbuildinfo

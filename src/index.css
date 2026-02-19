@@ -1,0 +1,155 @@
+@import "tailwindcss";
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  * { box-sizing: border-box; }
+}
+
+@layer components {
+  .arabic-text {
+    font-family: 'Amiri Quran', 'Amiri', 'Noto Naskh Arabic', 'Traditional Arabic', serif;
+    direction: rtl;
+    text-align: right;
+    line-height: 3;
+  }
+}
+
+/* ── Waveform animation ─────────────────────────────────────── */
+@keyframes wave {
+  0%   { height: 12%; }
+  100% { height: 92%; }
+}
+
+@keyframes mic-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.15); opacity: 0.8; }
+}
+
+/* ── Mic bar pulse (used in recording panel) ────────────────── */
+@keyframes micPulse {
+  0%   { height: 6px;  opacity: 0.6; }
+  100% { height: 32px; opacity: 1;   }
+}
+
+/* ── Recording glow ─────────────────────────────────────────── */
+@keyframes recGlow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(239,68,68,0.4); }
+  50%       { box-shadow: 0 0 0 10px rgba(239,68,68,0); }
+}
+
+/* ── Recording pulse ring ───────────────────────────────────── */
+@keyframes ping-slow {
+  0%  { transform: scale(1); opacity: 0.3; }
+  100%{ transform: scale(1.8); opacity: 0; }
+}
+
+/* ── Fade in animation ──────────────────────────────────────── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.4s ease both;
+}
+
+/* ── Smooth progress bar transition ────────────────────────── */
+.progress-bar-inner {
+  transition: width 0.5s ease;
+}
+
+/* ── Line clamp ─────────────────────────────────────────────── */
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* ── Custom scrollbar ───────────────────────────────────────── */
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 999px; }
+::-webkit-scrollbar-thumb { background: #6ee7b7; border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: #34d399; }
+
+/* ── Custom range slider ────────────────────────────────────── */
+input[type='range'] {
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+}
+input[type='range']::-webkit-slider-runnable-track {
+  height: 5px;
+  border-radius: 9999px;
+  background: #e2e8f0;
+}
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 9999px;
+  background: currentColor;
+  margin-top: -5px;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+}
+input[type='range']:focus { outline: none; }
+
+/* ── Tooltip hover ──────────────────────────────────────────── */
+.group:hover .group-hover\:block { display: block; }
+
+/* ── Details/Summary marker ─────────────────────────────────── */
+details > summary { list-style: none; }
+details > summary::-webkit-details-marker { display: none; }
+
+/* ── Gradient text ──────────────────────────────────────────── */
+.gradient-text {
+  background: linear-gradient(135deg, #065f46, #0d9488);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Arabic font rendering ──────────────────────────────────── */
+[dir="rtl"], .rtl {
+  font-family: 'Amiri Quran', 'Amiri', 'Noto Naskh Arabic', serif;
+  letter-spacing: 0;
+  word-spacing: 0.15em;
+}
+
+/* ── Ad slot placeholder styles ─────────────────────────────── */
+[data-ad-slot] {
+  min-height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ── Focus styles for accessibility ─────────────────────────── */
+button:focus-visible,
+a:focus-visible,
+select:focus-visible,
+input:focus-visible {
+  outline: 2px solid #059669;
+  outline-offset: 2px;
+}
+
+/* ── Print styles ───────────────────────────────────────────── */
+@media print {
+  .no-print { display: none !important; }
+}

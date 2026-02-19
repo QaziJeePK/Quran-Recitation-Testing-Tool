@@ -1,0 +1,23 @@
+{
+  "name": "Quran Recitation Checker",
+  "short_name": "QuranChecker",
+  "description": "AI-powered Quran recitation checker with Tajweed analysis and 12 famous reciters. All 114 Surahs.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#065f46",
+  "theme_color": "#065f46",
+  "orientation": "portrait-primary",
+  "lang": "ar",
+  "dir": "rtl",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='%23065f46' rx='20'/><text y='.9em' font-size='70' x='15'>🕌</text></svg>",
+      "sizes": "192x192",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["education", "religion", "utilities"],
+  "screenshots": [],
+  "prefer_related_applications": false
+}
